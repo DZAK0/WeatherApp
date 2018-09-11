@@ -4,17 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/colorPrimaryDark">
 
-    <TextView
-        android:id="@+id/Temperatura"
+    <EditText
+        android:id="@+id/CityNameEditText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Hello World!"
-        app:layout_constraintHorizontal_bias="0.464"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="City"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/WeatherButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:text="Weather"
+        android:background="@color/colorButton"
+        app:layout_constraintEnd_toEndOf="@+id/CityNameEditText"
+        app:layout_constraintStart_toStartOf="@+id/CityNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/CityNameEditText" />
 
 </android.support.constraint.ConstraintLayout>
