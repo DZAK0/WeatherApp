@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+    <string name="label">Weather application</string>
+    <string name="weather">Weather</string>
+    <string name="cityHint">Enter city name</string>
+    <string name="contentDescriptionWeatherIcon">Weather icon</string>
+    <string name="backButton">Back</string>
+    <string name="cityNotFound">City not found</string>
 </resources>
