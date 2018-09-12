@@ -6,6 +6,6 @@ Simple app to check weather, using openweathermap API.
 ## Built With
 
 * [OpenWeatherMap](https://openweathermap.org)
-* [OkHttp] (http://square.github.io/okhttp/)
+* [SquareOpenSource] (http://square.github.io) - using OkHttp and Picasso
 
 
