@@ -1,7 +1,10 @@
 package com.jw.weatherapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -23,6 +26,9 @@ public class WeatherActivity extends AppCompatActivity {
     private TextView SetCityName;
     private TextView WeatherTextView;
     private TextView HumidityTextView;
+    private TextView TemperatureMin;
+    private TextView TemperatureMax;
+    private Button BackButton;
     private String city;
 
     @Override
@@ -39,6 +45,9 @@ public class WeatherActivity extends AppCompatActivity {
         temperature = findViewById(R.id.TemperatureTextView);
         WeatherTextView = findViewById(R.id.WeatherTextView);
         HumidityTextView = findViewById(R.id.HumidityTextView);
+        BackButton = findViewById(R.id.BackButton);
+        TemperatureMin = findViewById(R.id.TemperatureMinTextView);
+        TemperatureMax = findViewById(R.id.TemperatureMaxTextView);
 
         OkHttpClient client = new OkHttpClient();
         String url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=bdc9b8c9eb6631c41e0b9c6f973bec35&units=Metric";
@@ -47,6 +56,15 @@ public class WeatherActivity extends AppCompatActivity {
                 .url(url)
                 .build();
 
+        BackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(WeatherActivity.this, MainActivity.class));
+            }
+        });
+
+        //TODO Add AsyncTask, progress dialog
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -75,9 +93,11 @@ public class WeatherActivity extends AppCompatActivity {
                                 Double temp = main.getDouble("temp");
 
                                 SetCityName.setText(city+", "+sys.getString("country"));
-                                temperature.setText(temp.toString());
+                                temperature.setText(temp.toString()+ "\u2103");
                                 WeatherTextView.setText(description);
-                                HumidityTextView.setText(String.valueOf(main.getInt("humidity"))+"%");
+                                HumidityTextView.setText("Humidity: "+String.valueOf(main.getInt("humidity"))+"%");
+                                TemperatureMin.setText("Temp. min: "+String.valueOf(main.getInt("temp_min")));
+                                TemperatureMax.setText("Temp. max: "+String.valueOf(main.getInt("temp_max")));
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

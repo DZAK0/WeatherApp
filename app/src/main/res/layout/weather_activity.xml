@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WeatherActivity">
+    tools:context=".WeatherActivity"
+    android:background="@color/colorBackground">
 
     <TextView
         android:id="@+id/CityNameTextView"
@@ -12,6 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="CityName"
+        android:textSize="35dp"
+        android:textColor="@color/colorText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,6 +25,7 @@
         android:layout_height="50dp"
         android:layout_marginBottom="15dp"
         android:text="Back"
+        android:background="@drawable/rounded_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -32,6 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Temperature"
+        android:textSize="25dp"
+        android:textColor="@color/colorText"
         app:layout_constraintEnd_toEndOf="@+id/CityNameTextView"
         app:layout_constraintStart_toStartOf="@+id/CityNameTextView"
         app:layout_constraintTop_toBottomOf="@+id/CityNameTextView" />
@@ -40,7 +46,9 @@
         android:id="@+id/WeatherTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:textColor="@color/colorText"
         android:text="WeatherTextView"
         app:layout_constraintEnd_toEndOf="@+id/TemperatureTextView"
         app:layout_constraintStart_toStartOf="@+id/TemperatureTextView"
@@ -52,8 +60,34 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Humidity"
+        android:textSize="15dp"
+        android:textColor="@color/colorText"
         app:layout_constraintEnd_toEndOf="@+id/WeatherTextView"
         app:layout_constraintStart_toStartOf="@+id/WeatherTextView"
         app:layout_constraintTop_toBottomOf="@+id/WeatherTextView" />
+
+    <TextView
+        android:id="@+id/TemperatureMinTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textColor="@color/colorText"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/HumidityTextView"
+        app:layout_constraintStart_toStartOf="@+id/HumidityTextView"
+        app:layout_constraintTop_toBottomOf="@+id/HumidityTextView" />
+
+    <TextView
+        android:id="@+id/TemperatureMaxTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textSize="15dp"
+        android:textColor="@color/colorText"
+        app:layout_constraintEnd_toEndOf="@+id/TemperatureMinTextView"
+        app:layout_constraintStart_toStartOf="@+id/TemperatureMinTextView"
+        app:layout_constraintTop_toBottomOf="@+id/TemperatureMinTextView" />
 
 </android.support.constraint.ConstraintLayout>
