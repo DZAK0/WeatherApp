@@ -1,11 +1,18 @@
 package com.jw.weatherapp;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +35,7 @@ public class WeatherActivity extends AppCompatActivity {
     private TextView HumidityTextView;
     private TextView TemperatureMin;
     private TextView TemperatureMax;
+    private ImageView WeatherIcon;
     private Button BackButton;
     private String city;
 
@@ -41,6 +49,7 @@ public class WeatherActivity extends AppCompatActivity {
             city = bundle.getString("City");
         }
 
+
         SetCityName = findViewById(R.id.CityNameTextView);
         temperature = findViewById(R.id.TemperatureTextView);
         WeatherTextView = findViewById(R.id.WeatherTextView);
@@ -48,13 +57,15 @@ public class WeatherActivity extends AppCompatActivity {
         BackButton = findViewById(R.id.BackButton);
         TemperatureMin = findViewById(R.id.TemperatureMinTextView);
         TemperatureMax = findViewById(R.id.TemperatureMaxTextView);
+        WeatherIcon = findViewById(R.id.WeatherIcon);
 
         OkHttpClient client = new OkHttpClient();
-        String url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=bdc9b8c9eb6631c41e0b9c6f973bec35&units=Metric";
+        String url  = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=bdc9b8c9eb6631c41e0b9c6f973bec35&units=Metric";
 
         Request request = new Request.Builder()
                 .url(url)
                 .build();
+
 
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +74,7 @@ public class WeatherActivity extends AppCompatActivity {
                 startActivity(new Intent(WeatherActivity.this, MainActivity.class));
             }
         });
+
 
         //TODO Add AsyncTask, progress dialog
         client.newCall(request).enqueue(new Callback() {
@@ -73,6 +85,7 @@ public class WeatherActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
+
                 if (response.isSuccessful()) {
                     final String myResponse = response.body().string();
 
@@ -81,15 +94,13 @@ public class WeatherActivity extends AppCompatActivity {
                         public void run() {
                             try {
                                 JSONObject json = new JSONObject(myResponse);
-
                                 JSONObject sys = json.getJSONObject("sys");
                                 JSONObject main = json.getJSONObject("main");
                                 JSONArray weather_array = json.getJSONArray("weather");
 
-                                //weather holds icon also
-                                //TODO add icon
                                 JSONObject weather = weather_array.getJSONObject(0);
                                 String description = weather.getString("description");
+                                String urlIcon = "http://openweathermap.org/img/w/"+weather.getString("icon")+".png";
                                 Double temp = main.getDouble("temp");
 
                                 SetCityName.setText(city+", "+sys.getString("country"));
@@ -98,6 +109,7 @@ public class WeatherActivity extends AppCompatActivity {
                                 HumidityTextView.setText("Humidity: "+String.valueOf(main.getInt("humidity"))+"%");
                                 TemperatureMin.setText("Temp. min: "+String.valueOf(main.getInt("temp_min")));
                                 TemperatureMax.setText("Temp. max: "+String.valueOf(main.getInt("temp_max")));
+                                Picasso.get().load(urlIcon).into(WeatherIcon);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -108,4 +120,5 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -1,6 +1,8 @@
 package com.jw.weatherapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,10 +23,30 @@ public class MainActivity extends AppCompatActivity {
         weather.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
-                intent.putExtra("City", city.getText().toString());
-                startActivity(intent);
+                if(Check()) {
+                    Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
+                    intent.putExtra("City", city.getText().toString());
+                    startActivity(intent);
+                }
             }
         });
+    }
+
+    private boolean Check() {
+        if(city.getText().toString().equals("")){
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            dialogBuilder.setCancelable(false);
+            dialogBuilder.setTitle("Error!");
+            dialogBuilder.setMessage("Enter city name!");
+            dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+            AlertDialog dialog = dialogBuilder.create();
+            dialog.show();
+            return false;
+        }
+        return true;
     }
 }
